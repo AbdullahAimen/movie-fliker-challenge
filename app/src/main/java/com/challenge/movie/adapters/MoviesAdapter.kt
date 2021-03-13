@@ -1,6 +1,9 @@
 package com.challenge.movie.adapters
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
@@ -8,8 +11,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.challenge.movie.R
 import com.challenge.movie.dataModel.MovieInfo
+import com.challenge.movie.views.DetailsActivity
 
-class MoviesViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+class MoviesViewHolder(val parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 ) {
 
@@ -24,6 +28,13 @@ class MoviesViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         year.text = "${item?.year}"
         genres.text = item?.genres.toString()
         cast.text = item?.cast.toString()
+        itemView.findViewById<View>(R.id.movieItem_view_root).setOnClickListener {
+            val intent = Intent(parent.context, DetailsActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putParcelable("MOVE_DETAILS", item)
+            intent.putExtras(mBundle)
+            parent.context.startActivity(intent)
+        }
     }
 }
 

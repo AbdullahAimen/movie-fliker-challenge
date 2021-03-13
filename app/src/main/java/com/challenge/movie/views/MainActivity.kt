@@ -1,4 +1,4 @@
-package com.challenge.movie
+package com.challenge.movie.views
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.challenge.movie.BuildConfig
+import com.challenge.movie.R
 import com.challenge.movie.adapters.ExpandableListAdapter
 import com.challenge.movie.adapters.MovieAdapter
 import com.challenge.movie.commands.SearchCommand
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     main_expandableList.visibility = View.GONE
                     return true
                 }
-                mMainViewModel.doSearch(newText ?: "")
+                mMainViewModel.doSearch(newText)
                 return false
             }
 
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                             main_expandableList.visibility = View.VISIBLE
                         else
                             main_expandableList.visibility = View.GONE
+
                     }
                 }
             }
