@@ -1,6 +1,8 @@
 package com.challenge.movie.adapters
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +10,13 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.challenge.movie.R
 import com.challenge.movie.dataModel.MovieInfo
+import com.challenge.movie.views.DetailsActivity
 
 
-class ExpandableListAdapter(private val mContext: Context, private val datMap: Map<Int, List<MovieInfo>>) :
+class ExpandableListAdapter(
+    private val mContext: Context,
+    private val datMap: Map<Int, List<MovieInfo>>
+) :
     BaseExpandableListAdapter() {
     override fun getGroupCount(): Int {
         return datMap.size
@@ -65,6 +71,13 @@ class ExpandableListAdapter(private val mContext: Context, private val datMap: M
         val childView =
             LayoutInflater.from(mContext).inflate(R.layout.item_expandable_child, parent, false)
         (childView.findViewById(R.id.expandable_tv_movieTitle) as TextView).text = movieTitle
+        childView.setOnClickListener {
+            val intent = Intent(mContext, DetailsActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putParcelable("MOVE_DETAILS", getChild(groupPosition, childPosition))
+            intent.putExtras(mBundle)
+            mContext.startActivity(intent)
+        }
         return childView
     }
 
